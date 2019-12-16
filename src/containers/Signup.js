@@ -8,11 +8,15 @@ import {
 import LoaderButton from "./LoaderButton";
 import { useFormFields } from "../Hook/hooksLib";
 import "../App.css";
+
 import { Auth } from "aws-amplify";
 
 export default function Signup(props) {
   const [fields, handleFieldChange] = useFormFields({
     email: "",
+    firstname:"",
+    lastname:"",
+    type:"",
     password: "",
     confirmPassword: "",
     confirmationCode: ""

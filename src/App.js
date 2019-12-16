@@ -11,6 +11,7 @@ import addProject from './addPost/addPost'
 import FreelancerProfile from './freelancer/FHome'
 import Checkout from './checkout/Checkout'
 import Login from "./containers/Login";
+import axios from 'axios'
 // import AppliedRoute from "./components/AppliedRoute";
 import Signup from "./containers/Signup";
 export default class App extends Component {

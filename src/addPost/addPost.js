@@ -7,6 +7,7 @@ import {
   InputGroup,
   Card
 } from "react-bootstrap";
+import axios from 'axios'
 import "./addProject.css";
 import storage from "./Firebase/index";
 import ChipInput from "material-ui-chip-input";
@@ -44,7 +45,24 @@ export default class addPost extends Component {
     };
     this.handleDelete = this.handleDelete.bind(this);
     this.handleAddition = this.handleAddition.bind(this);
+     this.onSubmit = this.onSubmit.bind(this);
   }
+  //axios 
+onSubmit(e){
+        e.preventDefault();
+        const project = {
+            title:this.state.Title,
+            description:this.state.desc,
+            price:this.state.price,
+            pic:this.state.url,
+            tags:this.state.chips,
+            client_id:"5df74a41739dc5029eb591b7",
+        }
+        axios.post('http://localhost:5001/projects/add',project)
+        .then(res => console.log(res.data)) 
+        console.log(project)
+        // window.location = '/'
+    }
   //forStepper
   handleOnClickStepper = step => {
     this.setState({ activeStep: step });
@@ -67,6 +85,7 @@ export default class addPost extends Component {
             content={() => <div> YOUR PROJECT ADDED </div>}
             title="YOUR PROJECT ADDED"/>
     });
+    
 }
   //forTags
   handleDelete = (chip, index) => {
@@ -142,7 +161,7 @@ let tag = this.state.chips.map(x => x + " ");
     return (
       <div>
         <Container>
-          <React.Fragment>
+          <React.Fragment >
             <Stepper
               steps={steps}
               activeStep={this.state.activeStep}
@@ -313,9 +332,12 @@ let tag = this.state.chips.map(x => x + " ");
                 value={
                   this.state.activeStep === steps.length ? "Finish" : "Next"
                 }
+                type={
+                  this.state.activeStep === steps.length ? "submit" : "Next"
+                }
                 onClick={
                   this.state.activeStep === steps.length
-                    ? this.onClickMe
+                    ? this.onSubmit
                     : this.handleOnClickNext
                 }
               >
