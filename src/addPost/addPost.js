@@ -9,6 +9,9 @@ import {
 } from "react-bootstrap";
 import axios from 'axios'
 import "./addProject.css";
+// import PropTypes from "prop-types";
+// import { connect } from "react-redux";
+// import { logoutUser } from "../actions/authActions";
 import storage from "./Firebase/index";
 import ChipInput from "material-ui-chip-input";
 import Stepper from "react-js-stepper";
@@ -28,7 +31,7 @@ const steps = [
   { title: "Stage - 3" },
   { title: "Stage - 4" }
 ];
-export default class addPost extends Component {
+class addPost extends Component {
   constructor(props) {
     super(props);
 
@@ -69,7 +72,8 @@ onSubmit(e){
 
         window.location = '/'
     }
-    
+    //for log user 
+
   //forStepper
   handleOnClickStepper = step => {
     this.setState({ activeStep: step });
@@ -383,3 +387,15 @@ let tag = this.state.chips.map(x => x + " ");
     );
   }
 }
+// addPost.propTypes = {
+//   logoutUser: PropTypes.func.isRequired,
+//   auth: PropTypes.object.isRequired
+// };
+// const mapStateToProps = state => ({
+//   auth: state.auth
+// });
+export default addPost 
+// connect(
+//   mapStateToProps,
+//   { logoutUser }
+// )(addPost);

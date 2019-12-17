@@ -56,6 +56,8 @@ export default class App extends Component {
           <Route exact path="/register" component={Register} />
           <Route exact path="/login" component={Login} />
           <Switch>
+    <PrivateRoute exact path='/addProject' component={addProject} />
+
               <PrivateRoute exact path="/dashboard" component={Dashboard} />
           </Switch>
         </div>
@@ -66,13 +68,13 @@ export default class App extends Component {
    <BrowserRouter>
     <Switch>
 <Route exact path='/' component={HomePage} />
-    <Route exact path='/addProject' component={addProject} />
 <Route exact path='/profile' component ={FreelancerProfile} />
 <Route exact path = '/checkout' component ={Checkout} />
 <Route exact path = '/post' component ={Qpage} />
 <Route exact path = '/chat' component ={Chat} />
     </Switch>
     </BrowserRouter>
+    
       </div>
     )
   }
