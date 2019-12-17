@@ -3,7 +3,7 @@ import {Container,Row,Col,Card,Button} from 'react-bootstrap'
 export default class hompagedown extends Component {
     render() {
         return (
-          <Container>
+          <>
             <div className="down">
             <h1 style={{ fontSize:"30px",paddingTop:"30px" }}>Need work done?</h1>
 <Row style={{boxshadow:"none" }}>
@@ -59,7 +59,7 @@ export default class hompagedown extends Component {
 </Card>
 </div>
 </div>
-            </Container>
+         </>  
         )
     }
 }

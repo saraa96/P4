@@ -12,6 +12,7 @@ import "./addProject.css";
 import storage from "./Firebase/index";
 import ChipInput from "material-ui-chip-input";
 import Stepper from "react-js-stepper";
+import { useToasts } from 'react-toast-notifications'
 
 import ButterToast, { Cinnamon, POS_BOTTOM, POS_RIGHT ,POS_TOP,POS_CENTER  } from 'butter-toast';
 const KeyCodes = {
@@ -19,7 +20,8 @@ const KeyCodes = {
   enter: 13
 };
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
-
+const content = "HI"
+ 
 const steps = [
   { title: "Stage - 1" },
   { title: "Stage - 2" },
@@ -59,10 +61,15 @@ onSubmit(e){
             client_id:"5df74a41739dc5029eb591b7",
         }
         axios.post('http://localhost:5001/projects/add',project)
-        .then(res => console.log(res.data)) 
+        .then(res => console.log(res.data)
+       
+        
+        ) 
         console.log(project)
-        // window.location = '/'
+
+        window.location = '/'
     }
+    
   //forStepper
   handleOnClickStepper = step => {
     this.setState({ activeStep: step });
@@ -77,16 +84,18 @@ onSubmit(e){
     let prevStep = this.state.activeStep - 1;
     this.setState({ activeStep: prevStep });
   };
-
   //for notifcation 
-  onClickMe() {
+  onClickMe=()=> {
     ButterToast.raise({
-        content: <Cinnamon.Crisp scheme={Cinnamon.Crisp.SCHEME_BLUE}
-            content={() => <div> YOUR PROJECT ADDED </div>}
-            title="YOUR PROJECT ADDED"/>
-    });
+        content: <Cinnamon.Crisp scheme={Cinnamon.Crunch.SCHEME_GREEN }
+            content={() => <div> YOUR PROJECT ADDED {window.location = `/`}  </div>  }
+            title="YOUR PROJECT ADDED" />
+            
+            
+     } );
     
 }
+
   //forTags
   handleDelete = (chip, index) => {
     if (this.state.chips.indexOf(chip) !== -1) {
@@ -140,7 +149,9 @@ onSubmit(e){
     );
   };
   //onchange
-
+readirct=()=>{
+   window.location = '/'
+}
   ChangeTitle = event => {
     this.setState({ Title: event.target.value });
   };
@@ -158,9 +169,10 @@ onSubmit(e){
     const lastStep = "Finsh"
     const { chips } = this.state;
 let tag = this.state.chips.map(x => x + " ");
+
     return (
       <div>
-        <Container>
+        {/* <Container> */}
           <React.Fragment >
             <Stepper
               steps={steps}
@@ -335,13 +347,13 @@ let tag = this.state.chips.map(x => x + " ");
                 type={
                   this.state.activeStep === steps.length ? "submit" : "Next"
                 }
-                onClick={
-                  this.state.activeStep === steps.length
-                    ? this.onSubmit
-                    : this.handleOnClickNext
-                }
-              >
-              <ButterToast position={{vertical: POS_TOP,  horizontal: POS_CENTER}} style={{ top: '50px' }}/>
+                onClick= { this.state.activeStep === steps.length
+                    ? this.onSubmit && this.onClickMe 
+                    : this.handleOnClickNext 
+              
+                  }  >
+                
+             
                 {" "}
               {  this.state.activeStep === steps.length
                 ? `Finish`
@@ -364,9 +376,9 @@ let tag = this.state.chips.map(x => x + " ");
                
             </div>
     
-          
+           <ButterToast position={{vertical: POS_TOP,  horizontal: POS_CENTER}} style={{ top: '50px' }}/>
           </React.Fragment>
-        </Container>
+        {/* </Container> */}
       </div>
     );
   }

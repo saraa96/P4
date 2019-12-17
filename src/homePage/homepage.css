@@ -10,11 +10,11 @@
     position: sticky;
   z-index: 3; /* put .gold-box above .green-box and .dashed-box */
   width: 80%;
-  margin-top: -240px;
+  margin-top: -400px;
   margin-left: 23%;
 }
 .down{
-  margin-top:100px;
+  margin-top:250px;
 text-align: center;
 }
 .down2{

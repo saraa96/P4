@@ -10,7 +10,7 @@ export default class footer extends Component {
             <footer class="page-footer font-small mdb-color pt-4">
 
            
-            <div class=" container text-center text-md-left">
+            <div class="  text-center text-md-left">
           
             
               <div class="d-flex justify-content-around row text-center text-md-left mt-3 pb-3">

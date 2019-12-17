@@ -1,6 +1,5 @@
 import React from 'react';
 import { MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
-
 const TablePage = props => {
 const data = {
   columns: [
@@ -9,7 +8,6 @@ const data = {
       field: 'id',
       sort: 'asc', 
        width:300
-
     },
     {
       label: 'Project Name',
@@ -28,7 +26,6 @@ const data = {
       field: 'status',
       sort: 'asc',
       width:300
-      
       }
   ],
   rows: [
@@ -37,8 +34,6 @@ const data = {
       'first': 'Mark',
       'last': 'Otto',
       'handle': '@mdo',
-    
-
     },
     {
       'id': 2,
@@ -72,7 +67,6 @@ const data = {
     }
   ]
 };
-
 return (
     <MDBTable scrollY>
       <MDBTableHead columns={data.columns} />
@@ -80,5 +74,4 @@ return (
     </MDBTable>
   );
 };
-
 export default TablePage;
