@@ -14,7 +14,6 @@ import axios from 'axios'
          Title: "",
       desc: "",
          chips: [],
-
   }
     }
 onSubmit=(e)=>{
@@ -24,7 +23,7 @@ onSubmit=(e)=>{
       description: this.state.desc,
          tags: this.state.chips,
           User_id:this.props.auth.user.id,
-        //  user_img:this.props.auth.user.image
+       User_name:this.props.auth.user.name
         }
         axios.post('http://localhost:5001/posts/add',post)
         .then(res => console.log(res.data)
@@ -65,7 +64,7 @@ handleDelete = (chip, index) => {
   };
 
     render() {
-console.log(this.state);
+console.log(this.props);
 
       store.getState()
        const { chips } = this.state;
