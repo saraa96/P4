@@ -5,7 +5,6 @@ import axios from 'axios'
  const CURRENCY = 'EUR';
 const fromEuroToCent = amount => amount * 100;
 const successPayment = data => {
-  // alert('Payment Successful');
   console.log(data)
 };
 const errorPayment = data => {

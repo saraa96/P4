@@ -7,16 +7,16 @@ import {
   InputGroup,
   Card
 } from "react-bootstrap";
+import classnames from "classnames";
+import PropTypes from "prop-types";
+import { connect , } from "react-redux";
 import axios from 'axios'
 import "./addProject.css";
-// import PropTypes from "prop-types";
-// import { connect } from "react-redux";
-// import { logoutUser } from "../actions/authActions";
 import storage from "./Firebase/index";
 import ChipInput from "material-ui-chip-input";
 import Stepper from "react-js-stepper";
 import { useToasts } from 'react-toast-notifications'
-
+import store from "../store";
 import ButterToast, { Cinnamon, POS_BOTTOM, POS_RIGHT ,POS_TOP,POS_CENTER  } from 'butter-toast';
 const KeyCodes = {
   comma: 188,
@@ -31,7 +31,7 @@ const steps = [
   { title: "Stage - 3" },
   { title: "Stage - 4" }
 ];
-class addPost extends Component {
+ class addPost extends Component {
   constructor(props) {
     super(props);
 
@@ -45,6 +45,7 @@ class addPost extends Component {
       desc: "",
       paytype: 0,
       price: "",
+      client_id:this.props.auth.user.id,
     
       chips: []
     };
@@ -59,9 +60,10 @@ onSubmit(e){
             title:this.state.Title,
             description:this.state.desc,
             price:this.state.price,
+         paytype:this.state.paytype,
             pic:this.state.url,
             tags:this.state.chips,
-            client_id:"5df74a41739dc5029eb591b7",
+            client_id:this.state.client_id,
         }
         axios.post('http://localhost:5001/projects/add',project)
         .then(res => console.log(res.data)
@@ -70,7 +72,7 @@ onSubmit(e){
         ) 
         console.log(project)
 
-        window.location = '/'
+        // window.location = '/'
     }
     //for log user 
 
@@ -92,7 +94,7 @@ onSubmit(e){
   onClickMe=()=> {
     ButterToast.raise({
         content: <Cinnamon.Crisp scheme={Cinnamon.Crunch.SCHEME_GREEN }
-            content={() => <div> YOUR PROJECT ADDED {window.location = `/`}  </div>  }
+            content={() => <div> YOUR PROJECT ADDED  </div>  }
             title="YOUR PROJECT ADDED" />
             
             
@@ -110,11 +112,9 @@ onSubmit(e){
   };
 
   handleAddition = chip => {
-
     if (this.state.chips.indexOf(chip) == -1) {
       let tag = this.state.chips;
       tag.push(chip);
-    
       this.setState({ chips: tag });
     }
   };
@@ -157,7 +157,7 @@ readirct=()=>{
    window.location = '/'
 }
   ChangeTitle = event => {
-    this.setState({ Title: event.target.value });
+    this.setState({ title: event.target.value });
   };
   Changedes = event => {
     this.setState({ desc: event.target.value });
@@ -165,18 +165,23 @@ readirct=()=>{
   ChangePrice = event => {
     this.setState({ price: event.target.value });
   };
-  Changepaytype = event => {
-    this.setState({ paytype: event.target.value });
+  Changepaytype = e => {
+    this.setState({
+      paytype: e.target.value
+    });
   };
   render() {
     const firstStep = "Next"
     const lastStep = "Finsh"
     const { chips } = this.state;
 let tag = this.state.chips.map(x => x + " ");
+// console.log(this.props.auth.user.id);
+console.log(this.state);
 
     return (
       <div>
         {/* <Container> */}
+        
           <React.Fragment >
             <Stepper
               steps={steps}
@@ -225,6 +230,7 @@ let tag = this.state.chips.map(x => x + " ");
                             <span>File</span>
                             <input type="file" onChange={this.handleChange} />
                           </div>
+                          {console.log(this.props.auth.user.id)}
                         </div>
                         <button
                           onClick={this.handleUpload}
@@ -262,13 +268,15 @@ let tag = this.state.chips.map(x => x + " ");
                       <section class="plan cf">
                         <h1 className="classh1">How do you want to pay?</h1>
                         <Row style={{ marginTop: "10%", marginLeft: "25%" }}>
+                         <div  onChange={this.Changepaytype} >
                           <input
                             type="radio"
                             name="radio1"
                             id="free"
-                            value="free"
+                            value="fixed"
                             inline
-                            checked
+                       onChange={this.Changepaytype}
+                         checked={this.state.paytype === 'fixed'}
                           />{" "}
                           <label
                             style={{ width: "50%" }}
@@ -284,10 +292,12 @@ let tag = this.state.chips.map(x => x + " ");
                           </label>
                           <input
                             type="radio"
-                            name="radio1"
+                            name="radio2"
                             id="basic"
-                            value="basic"
-                          />
+                            value="byHour"
+                            checked={this.state.paytype === 'byHour'}
+                            onChange={this.Changepaytype}
+                         />
                           <label class="basic-label four col" for="basic">
                             <h2>Pay by the hour</h2>
                             <p>
@@ -295,6 +305,7 @@ let tag = this.state.chips.map(x => x + " ");
                               billed. Best for ongoing work.
                             </p>
                           </label>
+                          </div>
                         </Row>
                       </section>
                     </form>
@@ -382,20 +393,18 @@ let tag = this.state.chips.map(x => x + " ");
     
            <ButterToast position={{vertical: POS_TOP,  horizontal: POS_CENTER}} style={{ top: '50px' }}/>
           </React.Fragment>
+       {console.log(this.state.client_id)}
         {/* </Container> */}
       </div>
     );
   }
 }
-// addPost.propTypes = {
-//   logoutUser: PropTypes.func.isRequired,
-//   auth: PropTypes.object.isRequired
-// };
-// const mapStateToProps = state => ({
-//   auth: state.auth
-// });
-export default addPost 
-// connect(
-//   mapStateToProps,
-//   { logoutUser }
-// )(addPost);
+addPost.propTypes = {
+  auth: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+export default connect(
+  mapStateToProps,
+)(addPost);

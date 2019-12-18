@@ -2,10 +2,8 @@ import React, { Component } from 'react'
 import {FormGroup,FormControl, FormLabel , Button} from "react-bootstrap";
 import { Form } from "semantic-ui-react";
 import { Link, withRouter } from 'react-router-dom';
-// import LoaderButton from "../Profile/LoaderButton";
 import "../../App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { registerUser } from "../../actions/authActions";
@@ -79,8 +77,6 @@ class Signup extends Component {
           </div>
       <Form noValidate onSubmit={this.onSubmit}>
         <FormGroup controlId="firstname" bsSize="large">
-          <FormLabel htmlFor="firstname">First Name</FormLabel>
-          <span className="red-text">{errors.firstname}</span>
           <FormControl
             onChange={this.onChange}
             value={this.state.firstname}
@@ -92,10 +88,10 @@ class Signup extends Component {
               invalid: errors.firstname
             })}
           />
+                    <FormLabel htmlFor="firstname">First Name</FormLabel>
+          <span className="red-text">{errors.firstname}</span>
         </FormGroup>
         <FormGroup controlId="lastname" bsSize="large">
-          <FormLabel htmlFor="lastname">Last Name</FormLabel>
-          <span className="red-text">{errors.lastname}</span>
           <FormControl
             onChange={this.onChange}
             value={this.state.lastname}
@@ -106,6 +102,8 @@ class Signup extends Component {
               invalid: errors.lastname
             })}
           />
+                    <FormLabel htmlFor="lastname">Last Name</FormLabel>
+          <span className="red-text">{errors.lastname}</span>
         </FormGroup>
         <FormGroup  bsSize="large">
           <FormLabel htmlFor="type">State</FormLabel>
@@ -125,8 +123,6 @@ class Signup extends Component {
       </FormControl>
         </FormGroup>
         <FormGroup controlId="email" bsSize="large">
-          <FormLabel htmlFor="email">Email</FormLabel>
-          <span className="red-text">{errors.email}</span>
           <FormControl
            onChange={this.onChange}
            value={this.state.email}
@@ -137,10 +133,10 @@ class Signup extends Component {
             invalid: errors.email
           })}
           />
+                    <FormLabel htmlFor="email">Email</FormLabel>
+          <span className="red-text">{errors.email}</span>
         </FormGroup>
         <FormGroup controlId="password" bsSize="large">
-          <FormLabel htmlFor="password">Password</FormLabel>
-          <span className="red-text">{errors.password}</span>
           <FormControl
             onChange={this.onChange}
             value={this.state.password}
@@ -151,10 +147,10 @@ class Signup extends Component {
               invalid: errors.password
             })}
           />
+                    <FormLabel htmlFor="password">Password</FormLabel>
+          <span className="red-text">{errors.password}</span>
         </FormGroup>
         <FormGroup controlId="confirmPassword" bsSize="large">
-          <FormLabel htmlFor="password2">Confirm Password</FormLabel>
-          <span className="red-text">{errors.password2}</span>
           <FormControl
             onChange={this.onChange}
             value={this.state.password2}
@@ -165,6 +161,8 @@ class Signup extends Component {
               invalid: errors.password2
             })}
           />
+                    <FormLabel htmlFor="password2">Confirm Password</FormLabel>
+          <span className="red-text">{errors.password2}</span>
         </FormGroup>
         
       
